@@ -1,0 +1,237 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(WeightLossApp());
+}
+
+class WeightLossApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '健康减肥计划',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('健康减肥计划'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.contact_mail),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ContactPage()),
+              );
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HeroSection(),
+            ProductSection(),
+            TestimonialSection(),
+            FAQSection(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HeroSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      color: Colors.green,
+      child: Center(
+        child: Text(
+          '启动你的健康减脂旅程！',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+
+class ProductSection extends StatelessWidget {
+  final List<Map<String, String>> products = [
+    {
+      'title': '燃脂绿茶',
+      'description': '天然绿茶成分，帮助加速新陈代谢，有效燃烧脂肪。',
+      'image': 'assets/green_tea.jpg',
+    },
+    {
+      'title': '代餐奶昔',
+      'description': '低糖高纤维，代餐更轻松，帮助维持饱腹感。',
+      'image': 'assets/meal_shake.jpg',
+    },
+    {
+      'title': '燃脂膳食补充剂',
+      'description': '专为快速燃脂设计的天然补充剂。',
+      'image': 'assets/supplement.jpg',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: products.map((product) {
+          return ProductCard(
+            title: product['title']!,
+            description: product['description']!,
+            image: product['image']!,
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class ProductCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String image;
+
+  ProductCard({required this.title, required this.description, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Image.asset(image),  // You can use network images as well
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(description),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('立即购买'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TestimonialSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          TestimonialCard(text: '我用了这款燃脂绿茶，已经成功减掉了5公斤，感觉充满活力！'),
+          TestimonialCard(text: '代餐奶昔不仅好喝，而且让我不再饿，减肥过程轻松很多。'),
+        ],
+      ),
+    );
+  }
+}
+
+class TestimonialCard extends StatelessWidget {
+  final String text;
+
+  TestimonialCard({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          text,
+          style: TextStyle(fontStyle: FontStyle.italic),
+        ),
+      ),
+    );
+  }
+}
+
+class FAQSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          FAQItem(question: '这款产品安全吗？', answer: '我们的产品使用天然成分，完全符合食品安全标准。'),
+          FAQItem(question: '减肥效果有多久才能看到？', answer: '大多数用户在使用4周后即可看到效果。'),
+        ],
+      ),
+    );
+  }
+}
+
+class FAQItem extends StatelessWidget {
+  final String question;
+  final String answer;
+
+  FAQItem({required this.question, required this.answer});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              question,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 5),
+            Text(answer),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ContactPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('联系我们')),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('电话：123-456-789', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 10),
+            Text('邮箱：support@product.com', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 10),
+            Text('地址：XX街道，XX市', style: TextStyle(fontSize: 18)),
+          ],
+        ),
+      ),
+    );
+  }
+}
